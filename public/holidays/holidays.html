@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>次の連休</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.partyhard.js"></script>
+<style type="text/css">
+#social div {
+  display: inline-block;
+}
+address {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid #DDD;
+}
+
+address iframe {
+  vertical-align: middle;
+}
+</style>
+</head>
+<body>
+
+<header id="header">
+<h1>次の連休
+<small id="social">
+
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+  <div id="fb-placeholder"></div>
+
+  <div class="g-plusone" data-width="300" data-size="medium"></div>
+
+</small>
+<script type="text/javascript">
+$('<iframe scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:20px;" allowTransparency="true"></iframe>')
+  .attr('src', 'http://www.facebook.com/plugins/like.php?href=' + encodeURIComponent(location.href) + '&layout=button_count&show_faces=false&width=100&action=like&height=21')
+  .replaceAll('#social #fb-placeholder');
+</script>
+</h1>
+</header>
+
+<div id="content">
+
+<section>
+<p>次の連休は <strong class="days-to-holidays">-</strong> 日後です</p>
+<ul class="details"></ul>
+</section>
+
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-4031405268309770";
+/* holidays */
+google_ad_slot = "8554277222";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</div>
+
+<textarea id="section-template" style="display: none">
+<section>
+<p>その次の連休はその <strong class="days-to-holidays">-</strong> 日後です</p>
+<ul class="details"></ul>
+</section>
+</textarea>
+
+<script type="text/javascript">
+var CALENDAR_ID = 'japanese__ja@holiday.calendar.google.com';
+var API_KEY = 'AIzaSyBtwQKokQJ4uQ1Oo8yuDop8RNQTmo9xWt0';
+var TUMBLR_API_KEY = 'p40LyUPzKCKD0Sb5AJxzPFUy4kULrHhE41MFnBLHSRYarpPs8M';
+
+var dateToday = new Date();
+
+if (/^#(\d{4})-(\d{2})-(\d{2})$/.exec(location.hash)) {
+    dateToday = new Date(parseInt(RegExp.$1), parseInt(RegExp.$2) - 1, parseInt(RegExp.$3));
+}
+
+var today = dateOffset(dateToday);
+
+var holidayName = {};
+
+function dateOffset (date) {
+    return Math.floor((date.getTime() - dateToday.getTimezoneOffset() * 60 * 1000) / (24 * 60 * 60 * 1000));
+}
+
+function offsetToDate (offset) {
+    return new Date((offset * 24 * 60 + dateToday.getTimezoneOffset()) * 60 * 1000);
+}
+
+function ymdToDate (ymd) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd);
+    return new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]));
+}
+
+function dateYmd (date) {
+    with (date) {
+        return [
+            getFullYear(),
+            ('0' + (getMonth() + 1)).substr(-2),
+            ('0' + (getDate()))     .substr(-2)
+        ].join('-');
+    }
+}
+
+function tweetButton (text) {
+    if (tweetButton.done) return;
+    tweetButton.done = true;
+
+    $('#social').append($('<a id="tweet" href="https://twitter.com/share" class="twitter-share-button" data-lang="ja">ツイート</a>').attr('data-text', text));
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+}
+
+for (var offset = (7 + (7 - 1) - dateToday.getDay()) % 7 - 7; offset <= 365 ; offset += 7) {
+    holidayName[today + offset] = '土曜日';
+    holidayName[today + offset + 1] = '日曜日';
+}
+
+$(function () {
+    $.ajax(
+        'https://www.googleapis.com/calendar/v3/calendars/japanese__ja%40holiday.calendar.google.com/events', {
+        data: {
+            key: API_KEY,
+            fields: 'items(start,summary)'
+        },
+        dataType: 'json'
+    }).done(function (data) {
+        var nextHolidayOffset = +Infinity;
+
+        for (var item, date, i = 0
+            ; (item = data.items[i]) && (date = item.start.date)
+            ; ++i) {
+
+            var offset = dateOffset(ymdToDate(date));
+
+            if (offset < nextHolidayOffset) {
+                nextHolidayOffset = offset;
+            }
+
+            holidayName[offset] = item.summary;
+        }
+
+        for (var i = today - 2, count = 0; i <= today + 2; ) {
+            if (holidayName[i++]) {
+                count++;
+            } else {
+                count = 0;
+            }
+
+            if (count >= 3) {
+              $('<h1><marquee><blink>連休発生中です！！！</blink></marquee></h1>').css({ 'color': 'black', 'background-color': 'yellow' }).insertAfter('h1');
+                tweetButton('連休発生中です！！！');
+                $(document.body).css('color', 'white').partyhard({ key: 'p40LyUPzKCKD0Sb5AJxzPFUy4kULrHhE41MFnBLHSRYarpPs8M' });
+            }
+        }
+
+        for (var i = Math.max(nextHolidayOffset - 2, today + 1), done = 0, lastOffset = today; i < today + 365; ++i) {
+            if (holidayName[i] && holidayName[i+1] && holidayName[i+2]) {
+                var section = $('section').eq(done++);
+                if (!section.length) {
+                    section = $($('#section-template').val()).appendTo('#content');
+                }
+
+                section.find('.days-to-holidays').text(i - lastOffset);
+                for (var name; name = holidayName[i]; ++i) {
+                    section.find('.details').append(
+                        $('<li>').append(
+                            $('<time>').text(dateYmd(offsetToDate(i))).attr('datetime', dateYmd(offsetToDate(i))),
+                            name
+                        )
+                    );
+                }
+                i--;
+
+                if (done === 1) {
+                    tweetButton(section.find('p').text());
+                }
+
+                lastOffset = i;
+            }
+        }
+    });
+});
+</script>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'ja'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<address>
+  Brought to you by <a href="http://motemen.github.com/">motemen</a> <a href="https://twitter.com/motemen" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @motemen</a>
+</address>
+
+</body>
+</html>
