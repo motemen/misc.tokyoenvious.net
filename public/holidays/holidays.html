@@ -165,7 +165,9 @@ $(function () {
                     section = $($('#section-template').val()).appendTo('#content');
                 }
 
-                section.find('.days-to-holidays').text(i - lastOffset);
+                var daysToHolidays = i - lastOffset;
+                section.find('.days-to-holidays').text(daysToHolidays);
+
                 for (var name; name = holidayName[i]; ++i) {
                     section.find('.details').append(
                         $('<li>').append(
@@ -178,6 +180,17 @@ $(function () {
 
                 if (done === 1) {
                     tweetButton(section.find('p').text());
+                    try {
+                        var canvas = $('<canvas width="16" height="16">')[0];
+                        var context = canvas.getContext('2d');
+                        context.textAlign = 'center';
+                        context.textBaseline = 'middle';
+                        context.fillStyle = '#000';
+                        context.fillRect(0, 0, 16, 16);
+                        context.fillStyle = '#FFF';
+                        context.fillText(daysToHolidays.toString(), 8, 8);
+                        $('<link type="image/x-icon" rel="icon">').attr('href', canvas.toDataURL('image/png')).appendTo('head');
+                    } catch (e) { }
                 }
 
                 lastOffset = i;
