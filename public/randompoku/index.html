@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Random Poku</title>
+</head>
+<body>
+<script>
+var ATOMS = (location.search.length ? decodeURIComponent(location.search.substring(1)) : 'ぽくつな').split(/(?:)/);
+var S;
+
+function _s () {
+  S = document.createElement('span');
+  document.body.appendChild(S);
+  return S;
+}
+
+function wander () {
+  var a = ATOMS[Math.floor(ATOMS.length * Math.random())];
+
+  if (S.firstChild) S.removeChild(S.firstChild);
+  S.appendChild(document.createTextNode(a));
+
+  if (Math.random() < 0.1) {
+    _s();
+  }
+  setTimeout(wander, 10);
+}
+
+window.onload = function () {
+  _s();
+  wander();
+};
+</script>
+</body>
+</html>
