@@ -20,10 +20,10 @@ function wander () {
   if (S.firstChild) S.removeChild(S.firstChild);
   S.appendChild(document.createTextNode(a));
 
-  if (Math.random() < 0.1) {
+  if (Math.random() < 0.15) {
     _s();
   }
-  setTimeout(wander, 10);
+  setTimeout(wander, 5);
 }
 
 window.onload = function () {
