@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>次の連休</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.partyhard.js"></script>
@@ -14,7 +15,6 @@ address {
   padding-top: 1em;
   border-top: 1px solid #DDD;
 }
-
 address iframe {
   vertical-align: middle;
 }
@@ -22,8 +22,17 @@ address iframe {
 </head>
 <body>
 
+<!-- holidays mobile -->
+<ins id="ad-touch" class="adsbygoogle"
+     style="display:none;width:320px;height:50px"
+     data-ad-client="ca-pub-4031405268309770"
+     data-ad-slot="1357981623"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <header id="header">
-<h1>次の連休
+<h1>次の連休<h1>
 <small id="social">
 
   <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
@@ -38,7 +47,6 @@ $('<iframe scrolling="no" frameborder="0" style="border:none; overflow:hidden; w
   .attr('src', 'http://www.facebook.com/plugins/like.php?href=' + encodeURIComponent(location.href) + '&layout=button_count&show_faces=false&width=100&action=like&height=21')
   .replaceAll('#social #fb-placeholder');
 </script>
-</h1>
 </header>
 
 <div id="content">
@@ -219,6 +227,13 @@ $(function () {
 
   ga('create', 'UA-39690180-1', 'tokyoenvious.net');
   ga('send', 'pageview');
+</script>
+
+<script>
+  if (/iPhone|iPod|Android.*Mobile/.exec(navigator.userAgent)) {
+    document.getElementById('ad-touch').style.display = 'inline-block';
+    document.write('<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></'+'script>')
+  }
 </script>
 
 <address>
