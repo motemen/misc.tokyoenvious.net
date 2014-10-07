@@ -106,7 +106,7 @@ var TUMBLR_API_KEY = 'p40LyUPzKCKD0Sb5AJxzPFUy4kULrHhE41MFnBLHSRYarpPs8M';
 var dateToday = new Date();
 
 if (/^#(\d{4})-(\d{2})-(\d{2})$/.exec(location.hash)) {
-    dateToday = new Date(parseInt(RegExp.$1), parseInt(RegExp.$2) - 1, parseInt(RegExp.$3));
+    dateToday = new Date(parseInt(RegExp.$1, 10), parseInt(RegExp.$2, 10) - 1, parseInt(RegExp.$3, 10));
 }
 
 var today = dateOffset(dateToday);
