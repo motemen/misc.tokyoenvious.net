@@ -199,7 +199,10 @@ $(function () {
             if (count >= 3) {
               $('<h1><marquee><blink>連休発生中です！！！</blink></marquee></h1>').css({ 'color': 'black', 'background-color': 'yellow' }).insertAfter('h1');
                 tweetButton('連休発生中です！！！');
-                $(document.body).css('color', 'white').partyhard({ key: 'p40LyUPzKCKD0Sb5AJxzPFUy4kULrHhE41MFnBLHSRYarpPs8M' });
+                try {
+                  $(document.body).css('color', 'white').partyhard({ key: 'p40LyUPzKCKD0Sb5AJxzPFUy4kULrHhE41MFnBLHSRYarpPs8M' });
+                } catch (e) {
+                }
             }
         }
 
