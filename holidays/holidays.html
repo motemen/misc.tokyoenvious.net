@@ -1,313 +1,124 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="次の連休まであと何日？ 2016年対応。">
-<meta name="application-name" content="次の連休">
-<meta name="msapplication-notification" content="frequency=60; polling-uri=http://japanese-long-weekends.herokuapp.com/ietile.xml">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="http://japanese-long-weekends.herokuapp.com/rss">
-<title>次の連休</title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="jquery.partyhard.js" async></script>
-<style type="text/css">
-#social div {
-  display: inline-block;
-}
-address {
-  margin-top: 1em;
-  padding-top: 1em;
-  border-top: 1px solid #DDD;
-}
-address iframe {
-  vertical-align: middle;
-}
-time {
-  margin-right: 0.5em;
-}
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif, "Lucida Grande", Helvetica, Arial;
-}
-header, #content, address {
-  margin: 8px;
-}
-#content {
-  max-width: 900px;
-}
-#ifttt {
-  margin: 2em 1em;
-}
-#ifttt h2 {
-  color: #999;
-  font-size: 120%;
-}
-</style>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="次の連休まであと何日？ 2018年対応。">
+    <meta name="application-name" content="次の連休">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://japanese-long-weekends.herokuapp.com/rss">
+    <title>次の連休</title>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body>
+    <!-- holidays mobile -->
+    <ins id="ad-touch"
+         class="adsbygoogle"
+         style="display:none;width:100%;height:50px;text-align:center;background-color:#999"
+         data-ad-client="ca-pub-4031405268309770"
+         data-ad-slot="1357981623"></ins>
 
-<!-- holidays mobile -->
-<ins id="ad-touch" class="adsbygoogle"
-     style="display:none;width:100%;height:50px;text-align:center;background-color:#999"
-     data-ad-client="ca-pub-4031405268309770"
-     data-ad-slot="1357981623"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+    <header id="header">
+      <h1>次の連休</h1>
+      <small id="social">
 
-<header id="header">
-<h1>次の連休<h1>
-<small id="social">
+        <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
 
-  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+        <div id="fb-placeholder"></div>
 
-  <div id="fb-placeholder"></div>
+        <div class="g-plusone" data-width="300" data-size="medium"></div>
 
-  <div class="g-plusone" data-width="300" data-size="medium"></div>
+      </small>
+    </header>
 
-</small>
-<script type="text/javascript">
-$('<iframe scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:20px;" allowTransparency="true"></iframe>')
-  .attr('src', 'http://www.facebook.com/plugins/like.php?href=' + encodeURIComponent(location.href) + '&layout=button_count&show_faces=false&width=100&action=like&height=21')
-  .replaceAll('#social #fb-placeholder');
-</script>
-</header>
+    <div id="content">
+      <div id="content-main"></div>
 
-<div id="content">
+      <textarea id="template" style="display: none">
+        {{#firstItem}}
+        <section>
+          <p id="lead-text">次の連休は <strong>{{daysAhead}}</strong> 日後です{{#potentialItem}}が、<strong>{{suggestedWeekdayYMD}}</strong> に有給を取れば <strong>{{daysAhead}}</strong> 日後に連休チャンス！{{/potentialItem}}
+          </p>
+          <ul class="details">
+            {{#holidays}}
+            <li><time datetime="{{dateYMD}}">{{dateYMD}}</time>{{name}}</li>
+            {{/holidays}}
+          </ul>
+        </section>
+        {{/firstItem}}
 
-<section>
-<p>次の連休は <strong class="days-to-holidays">-</strong> 日後です</p>
-<ul class="details"></ul>
-</section>
+        <!-- holidays-responsive -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-4031405268309770"
+             data-ad-slot="8554246029"
+             data-ad-format="auto"></ins>
+        <br>
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- holidays-responsive -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-4031405268309770"
-     data-ad-slot="8554246029"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+        {{#restItems}}
+        <section>
+          <p>その次の連休はその <strong>{{daysAheadDelta}}</strong> 日後です</p>
+          <ul class="details">
+            {{#holidays}}
+            <li><time datetime="{{dateYMD}}">{{dateYMD}}</time> {{name}}</li>
+            {{/holidays}}
+          </ul>
+        </section>
+        {{/restItems}}
+      </textarea>
+    </div>
 
-<br>
+    <script src="./bundle.js"></script>
 
-<!-- Rakuten Widget FROM HERE <script type="text/javascript">rakuten_design="slide";rakuten_affiliateId="11ba5758.78b8db3b.11ba5759.e1fd157a";rakuten_items="tra-ranking";rakuten_genreId="tra-allzenkoku";rakuten_size=/iPhone|iPod|Android.*Mobile/.exec(navigator.userAgent)?"320x48":"600x200";rakuten_target="_blank";rakuten_theme="gray";rakuten_border="off";rakuten_auto_mode="off";rakuten_genre_title="off";rakuten_recommend="on";rakuten_service_flag="travel";</script><script type="text/javascript" src="http://xml.affiliate.rakuten.co.jp/widget/js/rakuten_widget_travel.js"></script> Rakuten Widget TO HERE -->
+    <script>
+      document.querySelector('#social #fb-placeholder')
+        .insertAdjacentHTML(
+          'afterbegin',
+          '<iframe scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:20px;" allowTransparency="true"></iframe>'
+        );
+      document.querySelector('#social #fb-placeholder iframe')
+        .setAttribute('src', 'https://www.facebook.com/plugins/like.php?href=' + encodeURIComponent(location.href) + '&layout=button_count&show_faces=false&width=100&action=like&height=21');
+    </script>
 
-</div>
+    <script>
+      window.___gcfg = {lang: 'ja'};
 
-<textarea id="section-template" style="display: none">
-<section>
-<p>その次の連休はその <strong class="days-to-holidays">-</strong> 日後です</p>
-<ul class="details"></ul>
-</section>
-</textarea>
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
 
-<textarea id="chance-date-template" style="display: none">
-<p>が、<strong class="chance-date"></strong> に有給を取れば <strong class="days-to-holidays">-</strong> 日後に連休チャンス！</p>
-</textarea>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-<script type="text/javascript">
-var CALENDAR_ID = 'japanese__ja@holiday.calendar.google.com';
-var API_KEY = 'AIzaSyBtwQKokQJ4uQ1Oo8yuDop8RNQTmo9xWt0';
-var TUMBLR_API_KEY = 'p40LyUPzKCKD0Sb5AJxzPFUy4kULrHhE41MFnBLHSRYarpPs8M';
+      ga('create', 'UA-39690180-1', 'tokyoenvious.net');
+      ga('send', 'pageview');
+    </script>
 
-var dateToday = new Date();
+    <script>
+      if (/iPhone|iPod|Android.*Mobile/.test(navigator.userAgent)) {
+        document.getElementById('ad-touch').style.display = 'inline-block';
+        document.write('<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></'+'script>')
+      }
+    </script>
 
-if (/^#(\d{4})-(\d{2})-(\d{2})$/.exec(location.hash)) {
-    dateToday = new Date(parseInt(RegExp.$1, 10), parseInt(RegExp.$2, 10) - 1, parseInt(RegExp.$3, 10));
-}
+    <div id="ifttt">
+      <h2>IFTTT Recipe</h2>
 
-var today = dateOffset(dateToday);
+      <a href="https://ifttt.com/view_embed_recipe/209621-n" target = "_blank" class="embed_recipe embed_recipe-l_12" id= "embed_recipe-209621"><img src= 'https://ifttt.com/recipe_embed_img/209621' alt="IFTTT Recipe: 次の連休は N 日後です connects feed to twitter" width="370px" style="max-width:100%"/></a><script async type="text/javascript" src= "//ifttt.com/assets/embed_recipe.js"></script>
+    </div>
 
-var holidayName = {};
-var nextToWeekend = {};
+    <address>
+      Brought to you by <a href="https://motemen.github.io/">motemen</a> <a href="https://twitter.com/motemen" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @motemen</a>, powered by <a href="https://developers.google.com/google-apps/calendar/">Google Calendar API</a>.
+    </address>
 
-function dateOffset (date) {
-    return Math.floor((date.getTime() - dateToday.getTimezoneOffset() * 60 * 1000) / (24 * 60 * 60 * 1000));
-}
-
-function offsetToDate (offset) {
-    return new Date((offset * 24 * 60 + dateToday.getTimezoneOffset()) * 60 * 1000);
-}
-
-function ymdToDate (ymd) {
-    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd);
-    return new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10));
-}
-
-function dateYmd (date) {
-    with (date) {
-        return [
-            getFullYear(),
-            ('0' + (getMonth() + 1)).substr(-2),
-            ('0' + (getDate()))     .substr(-2)
-        ].join('-');
-    }
-}
-
-function tweetButton (text) {
-    if (tweetButton.done) return;
-    tweetButton.done = true;
-
-    $('#social').append($('<a id="tweet" href="https://twitter.com/share" class="twitter-share-button" data-lang="ja"></a>').attr('data-text', text));
-    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-}
-
-for (var offset = (7 + (7 - 1) - dateToday.getDay()) % 7 - 7; offset <= 365 ; offset += 7) {
-    holidayName[today + offset] = '土曜日';
-    holidayName[today + offset + 1] = '日曜日';
-
-    nextToWeekend[today + offset - 1] = '金曜日';
-    nextToWeekend[today + offset + 1 + 1] = '月曜日';
-}
-
-$(function () {
-    $.ajax(
-        'https://www.googleapis.com/calendar/v3/calendars/japanese__ja%40holiday.calendar.google.com/events', {
-        data: {
-            key: API_KEY,
-            fields: 'items(start,summary)'
-        },
-        dataType: 'json'
-    }).done(function (data) {
-        var nextHolidayOffset = +Infinity;
-        var chanceP;
-
-        for (var item, date, i = 0
-            ; (item = data.items[i]) && (date = item.start.date)
-            ; ++i) {
-
-            var offset = dateOffset(ymdToDate(date));
-
-            if (offset < nextHolidayOffset) {
-                nextHolidayOffset = offset;
-            }
-
-            holidayName[offset] = item.summary;
-        }
-
-        for (var i = today - 2, count = 0; i <= today + 2; ) {
-            if (holidayName[i++]) {
-                count++;
-            } else {
-                count = 0;
-            }
-
-            if (count >= 3) {
-              $('<h1><marquee><blink>連休発生中です！！！</blink></marquee></h1>').css({ 'color': 'black', 'background-color': 'yellow' }).insertAfter('h1');
-                tweetButton('連休発生中です！！！');
-                try {
-                  $(document.body).css('color', 'white').partyhard({ key: 'p40LyUPzKCKD0Sb5AJxzPFUy4kULrHhE41MFnBLHSRYarpPs8M' });
-                } catch (e) {
-                }
-            }
-        }
-
-        for (var i = Math.max(nextHolidayOffset - 2, today + 1), done = 0, lastOffset = today; i < today + 365; ++i) {
-            if (holidayName[i] && holidayName[i+1] && holidayName[i+2]) {
-                // found successive holidays
-                var section = $('section').eq(done++);
-                if (!section.length) {
-                    section = $($('#section-template').val()).appendTo('#content');
-                }
-
-                var daysToHolidays = i - lastOffset;
-                section.find('.days-to-holidays').text(daysToHolidays);
-
-                if (chanceP && done === 1) {
-                    section.find('p').html(function (i, html) {
-                      return '' + html + chanceP.html();
-                    });
-                    // chanceP.insertBefore(section.find('.details'));
-                }
-
-                for (var name; name = holidayName[i]; ++i) {
-                    section.find('.details').append(
-                        $('<li>').append(
-                            $('<time>').text(dateYmd(offsetToDate(i))).attr('datetime', dateYmd(offsetToDate(i))),
-                            name
-                        )
-                    );
-                }
-                i--;
-
-                if (done === 1) {
-                    tweetButton(section.find('p').text());
-                    try {
-                        var canvas = $('<canvas width="16" height="16">')[0];
-                        var context = canvas.getContext('2d');
-                        context.textAlign = 'center';
-                        context.textBaseline = 'middle';
-                        context.fillStyle = '#000';
-                        context.fillRect(0, 0, 16, 16);
-                        context.fillStyle = '#FFF';
-                        context.fillText(daysToHolidays.toString(), 8, 8);
-                        $('<link type="image/x-icon" rel="icon">').attr('href', canvas.toDataURL('image/png')).appendTo('head');
-                    } catch (e) { }
-                }
-
-                lastOffset = i;
-            } else if (done === 0 && ! chanceP) {
-                console.log(i);
-                console.log([holidayName[i] , nextToWeekend[i+1] , holidayName[i+2] , holidayName[i+3]]);
-                console.log([holidayName[i] , holidayName[i+1] , nextToWeekend[i+2] , holidayName[i+3]]);
-
-                var chanceOffset;
-                if (holidayName[i] && nextToWeekend[i+1] && holidayName[i+2] && holidayName[i+3]) {
-                    chanceOffset = i+1;
-                } else if (holidayName[i] && holidayName[i+1] && nextToWeekend[i+2] && holidayName[i+3]) {
-                    chanceOffset = i+2;
-                }
-
-                if (chanceOffset) {
-                    chanceP = $($('#chance-date-template').val());
-                    chanceP.find('.days-to-holidays').text(i - today);
-                    chanceP.find('.chance-date').text(dateYmd(offsetToDate(chanceOffset)) + ' ' + nextToWeekend[chanceOffset]);
-                }
-            }
-        }
-    });
-});
-</script>
-<script type="text/javascript">
-  window.___gcfg = {lang: 'ja'};
-
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-39690180-1', 'tokyoenvious.net');
-  ga('send', 'pageview');
-</script>
-
-<script>
-  if (/iPhone|iPod|Android.*Mobile/.exec(navigator.userAgent)) {
-    document.getElementById('ad-touch').style.display = 'inline-block';
-    document.write('<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></'+'script>')
-  }
-</script>
-
-<div id="ifttt">
-<h2>IFTTT Recipe</h2>
-
-<a href="https://ifttt.com/view_embed_recipe/209621-n" target = "_blank" class="embed_recipe embed_recipe-l_12" id= "embed_recipe-209621"><img src= 'https://ifttt.com/recipe_embed_img/209621' alt="IFTTT Recipe: 次の連休は N 日後です connects feed to twitter" width="370px" style="max-width:100%"/></a><script async type="text/javascript" src= "//ifttt.com/assets/embed_recipe.js"></script>
-</div>
-
-<address>
-  Brought to you by <a href="http://motemen.github.io/">motemen</a> <a href="https://twitter.com/motemen" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @motemen</a>, powered by <a href="https://developers.google.com/google-apps/calendar/">Google Calendar API</a>.
-</address>
-
-</body>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </body>
 </html>
